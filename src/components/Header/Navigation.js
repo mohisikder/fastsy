@@ -2,11 +2,19 @@ import React from "react";
 import "./Header.css";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
-const NavigationBar = () => {
+const Navigation = () => {
+  const { user, logout } = useAuth();
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        shadow="lg"
+        bg="light"
+        variant="light"
+      >
         <Container>
           <Navbar.Brand as={Link} to="/">
             Fast<span className="logo">sy</span>
@@ -29,12 +37,24 @@ const NavigationBar = () => {
               <Nav.Link as={Link} to="/contact">
                 Contact
               </Nav.Link>
+              {user?.email && (
+                <Nav.Link as={Link} to="/dashboard">
+                  Dashboard
+                </Nav.Link>
+              )}
+              {user?.email && <Nav.Link>{user?.email}</Nav.Link>}
             </Nav>
-            <Nav>
-              <Nav.Link as={Link} to="/login">
-                Login
-              </Nav.Link>
-            </Nav>
+            {user?.email ? (
+              <Button onClick={logout} variant="danger">
+                Logout
+              </Button>
+            ) : (
+              <Button variant="danger" size="sm">
+                <Nav.Link className="text-white" as={Link} to="/login">
+                  Login
+                </Nav.Link>
+              </Button>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -42,4 +62,4 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+export default Navigation;

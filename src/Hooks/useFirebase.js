@@ -1,21 +1,65 @@
+import { useEffect, useState } from "react";
+import initializeFirebaseApp from "../Firebase/firebase.init";
 import {
   getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signOut,
+  updateProfile,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
-import { useEffect } from "react";
-import { useState } from "react";
-import initializeAuthentication from "../Firebase/firebase.init";
+import { Navigate } from "react-router-dom";
 
-initializeAuthentication();
+initializeFirebaseApp();
 
 const useFirebase = () => {
-  const auth = getAuth();
   const [user, setUser] = useState({});
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [admin, setAdmin] = useState(false);
+
+  const auth = getAuth();
+
+  // Register with email
+  const handleRegister = (email, password, name, navigate) => {
+    setIsLoading(true);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const newUser = { email, displayName: name };
+        setUser(newUser);
+        // Save user data into database
+        saveUser(email, name, "POST");
+        // send name to firebase after creation
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch((error) => {});
+        navigate.replace("/");
+        setError("");
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // Login with email
+  const loginUser = (email, password, location, navigate) => {
+    setIsLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const destination = location?.state?.from || "/";
+        navigate.replace(destination);
+        setError("");
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   //Register with Google
   const signUpWithGoogle = () => {
@@ -38,28 +82,54 @@ const useFirebase = () => {
       }
       setIsLoading(false);
     });
-    return () => unsubscribe();
+    return () => unsubscribe;
   }, []);
 
-  // Sign Out
-  const handleSignOut = () => {
+  useEffect(() => {
+    fetch(
+      `https://tranquil-brushlands-41625.herokuapp.com/users/${user?.email}`
+    )
+      .then((res) => res.json())
+      .then((data) => setAdmin(data.admin));
+  }, [user?.email]);
+
+  const logout = () => {
+    setIsLoading(true);
     signOut(auth)
       .then(() => {
-        setUser({});
+        // Sign-out successful.
       })
       .catch((error) => {
-        setError("");
-      });
+        // An error happened.
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // Save User data
+  const saveUser = (email, displayName, method) => {
+    const user = { email, displayName };
+
+    fetch(`https://tranquil-brushlands-41625.herokuapp.com/users`, {
+      method: method,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then();
   };
 
   return {
     user,
-    loginWithGoogle,
-    setUser,
+    handleRegister,
+    logout,
+    loginUser,
     setIsLoading,
     isLoading,
-    handleSignOut,
+    error,
+    saveUser,
+    admin,
     signUpWithGoogle,
+    loginWithGoogle,
   };
 };
 

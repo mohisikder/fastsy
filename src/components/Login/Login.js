@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Row,
-  Spinner,
-} from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Col, Container, Row, Button, Form, Spinner } from "react-bootstrap";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
-  //   const { user, loginUser, isLoading, error } = useAuth();
+  const {
+    user,
+    loginUser,
+    isLoading,
+    error,
+    loginWithGoogle,
+    setIsLoading,
+    setUser,
+  } = useAuth();
 
-  //   const history = useHistory();
-  //   const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const url = location.state?.from || "/home";
 
   const handleOnChange = (e) => {
     const field = e.target.name;
@@ -25,12 +27,22 @@ const Login = () => {
     setLoginData(newLoginData);
   };
   const handleLogin = (e) => {
-    // loginUser(loginData.email, loginData.password);
+    loginUser(loginData.email, loginData.password, location, navigate);
     e.preventDefault();
   };
 
+  // Login with google
   const handleGoogleLogin = () => {
-    console.log("Clicked");
+    loginWithGoogle()
+      .then((res) => {
+        setIsLoading(true);
+        setUser(res.user);
+        navigate.push(url);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return (
     <>
@@ -50,49 +62,46 @@ const Login = () => {
             >
               <h3 className="py-4">Login</h3>
               <div className="d-flex justify-content-center align-items-center">
-                {/* {!isLoading && ( */}
-                <Form onSubmit={handleLogin}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control
-                      onChange={handleOnChange}
-                      name="email"
-                      type="email"
-                      placeholder="Enter email"
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control
-                      onChange={handleOnChange}
-                      name="password"
-                      type="password"
-                      placeholder="Password"
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Button className="w-100" variant="danger" type="submit">
-                      Login
+                {!isLoading && (
+                  <Form onSubmit={handleLogin}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Control
+                        onChange={handleOnChange}
+                        name="email"
+                        type="email"
+                        placeholder="Enter email"
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Control
+                        onChange={handleOnChange}
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Button className="w-100" variant="danger" type="submit">
+                        Login
+                      </Button>
+                    </Form.Group>{" "}
+                    <br />
+                    <p>---------- or use one of these options ----------</p>
+                    <Button onClick={handleGoogleLogin} variant="danger">
+                      Login with google
                     </Button>
-                  </Form.Group>{" "}
-                  <br />
-                  <p>---------- OR Login ----------</p>
-                  <button
-                    onClick={handleGoogleLogin}
-                    className="btn btn-danger"
-                  >
-                    <i className="me-3 fab fa-google"></i>Google Sign In
-                  </button>
-                  <br />
-                  <NavLink style={{ textDecoration: "none" }} to="/register">
-                    <Button
-                      variant="text"
-                      style={{ marginBottom: "40px", marginTop: "15px" }}
-                    >
-                      New User? <strong>Please Register</strong>
-                    </Button>
-                  </NavLink>
-                </Form>
-                {/* )} */}
-                {/* {isLoading && <Spinner animation="grow" />} */}
+                    <br />
+                    <NavLink style={{ textDecoration: "none" }} to="/register">
+                      <Button
+                        variant="text"
+                        style={{ margin: "10px 0", paddingBottom: "25px" }}
+                      >
+                        New User? <strong>Register</strong>
+                      </Button>
+                    </NavLink>
+                  </Form>
+                )}
+                {isLoading && <Spinner animation="grow" />}
               </div>
             </div>
           </Col>
