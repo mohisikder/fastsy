@@ -14,10 +14,11 @@ const Navigation = () => {
         shadow="lg"
         bg="light"
         variant="light"
+        top="fixed"
       >
         <Container>
           <Navbar.Brand as={Link} to="/">
-            Fast<span className="logo">sy</span>
+            Fast<span className="text-danger">sy</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
