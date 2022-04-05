@@ -1,0 +1,21 @@
+.tours__top__bg {
+  background: rgba(0, 0, 0, 0.26);
+  background-image: url("https://images.unsplash.com/photo-1488085061387-422e29b40080?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8dHJhdmVsfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 60vh;
+  width: 100%;
+  background-blend-mode: overlay;
+  padding: 120px 0;
+  margin-bottom: 80px;
+}
+.tours__top__bg h1 {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 60px;
+}
+.tours__top__bg h3 {
+  text-align: center;
+  color: white;
+}

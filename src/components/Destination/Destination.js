@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pricing = () => {
+const Destination = () => {
   return (
     <div>
       <h1>Pricing components</h1>
@@ -8,4 +8,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Destination;

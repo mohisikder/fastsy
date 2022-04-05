@@ -8,31 +8,81 @@
 /* Banner section */
 .banner__section {
   padding: 120px 0;
-  background: #f5f5f5;
-
-  background-image: url("https://pathao.com/wp-content/uploads/2018/12/05-Courier.png");
+  background: rgba(0, 0, 0, 0.337);
+  color: #fff;
+  margin-top: 70px;
+  background-image: url("https://images.unsplash.com/photo-1489258205848-4b9651de165b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHRyYXZlbCUyMHBob3RvZ3JhcGh5fGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  height: auto;
+  background-blend-mode: overlay;
+  height: 100vh;
   width: 100%;
 }
 .subtitle {
   margin-bottom: 30px;
 }
-.banner__section .section__title {
-  font-size: 3rem;
+.banner__section .title {
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 30px;
 }
 .banner__section .text {
   line-height: 1.85rem;
   font-size: 1.25rem;
 }
-.banner__section .banner__btn {
+.banner__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 50px;
-  padding: 12px 40px;
+}
+.under__line {
+  border: 2px solid #f13939;
+  width: 8%;
+  margin-bottom: 25px;
 }
 
-.banner__image {
+/* Features Section */
+.features__info {
+  padding: 50px 0;
+  display: flex;
+  align-items: center;
+}
+.feature {
+  margin-left: 30px;
+}
+
+/* Trand Tours Section */
+.trand__tours__section {
+  padding: 100px 0;
+}
+
+.section__title {
+  margin-bottom: 50px;
+}
+.tour__img {
+  overflow: hidden;
+}
+.tour__img img {
+  transition: all 0.3s ease-in-out;
+  opacity: 0.7;
+}
+
+.tour__img:hover img {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.reviews__items {
+  display: flex;
+  align-items: center !important;
+  margin: 30px 0;
+}
+.reviews {
+  margin-left: 25px;
+}
+.rating-bg-fill {
+  color: #ffce25;
+}
+.low-star {
+  opacity: 0.8;
 }

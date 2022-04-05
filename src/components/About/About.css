@@ -1,0 +1,18 @@
+.about-img {
+  background: rgba(0, 0, 0, 0.349);
+  background-image: url("https://i.ibb.co/ygpXLY9/ali-maah-zy-Oe-Em4-Ns-PM-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-attachment: fixed;
+  height: 60vh;
+  width: 100%;
+}
+.about-title {
+  font-size: 3.5rem;
+  padding-top: 150px;
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+}

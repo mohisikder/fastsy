@@ -35,10 +35,10 @@ const Footer = () => {
                   About Us
                 </Nav.Link>
                 <Nav.Link as={Link} className="text-white" to="/services">
-                  Services
+                  Tours
                 </Nav.Link>
-                <Nav.Link as={Link} className="text-white" to="/pricing">
-                  Pricing
+                <Nav.Link as={Link} className="text-white" to="/tranding">
+                  Tranding
                 </Nav.Link>
               </Nav>
             </Col>
@@ -52,7 +52,7 @@ const Footer = () => {
                   Careers
                 </Nav.Link>
                 <Nav.Link as={Link} className="text-white" to="/shipping">
-                  Start Shipping
+                  Start Travel
                 </Nav.Link>
                 <Nav.Link as={Link} className="text-white" to="/query">
                   Raise a Query

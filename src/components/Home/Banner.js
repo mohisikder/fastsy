@@ -1,7 +1,6 @@
 import React from "react";
 import "../Header/Header.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { FaArrowRight } from "react-icons/fa";
 
 const Banner = () => {
   return (
@@ -9,24 +8,14 @@ const Banner = () => {
       <div className="banner__section">
         <Container>
           <Row>
-            <Col md={6} xs={12}>
+            <Col md={12} xs={12}>
               <div className="banner__info">
-                <h5 className="subtitle">Fastsy Courier</h5>
-                <h2 className="section__title">
-                  Reliable Delivery <br /> for Your Business.
-                </h2>
+                <h5 className="title">Love where you're going</h5>
                 <p className="text">
-                  Fastsy Courier guarantees reliable delivery of your product to
-                  your customer, at the right location in the right time through
-                  its efficient distribution management.
+                  Book incredible things to do around the world.
                 </p>
-                <Button variant="danger" className="banner__btn">
-                  Become a Merchant <FaArrowRight className="ms-2" />
-                </Button>
+                <Button variant="danger">Explore</Button>
               </div>
-            </Col>
-            <Col md={6} xs={12}>
-              <div className="banner__image"></div>
             </Col>
           </Row>
         </Container>

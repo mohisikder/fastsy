@@ -11,10 +11,10 @@ const Navigation = () => {
       <Navbar
         collapseOnSelect
         expand="lg"
-        shadow="lg"
         bg="light"
         variant="light"
-        top="fixed"
+        fixed="top"
+        className="shadow"
       >
         <Container>
           <Navbar.Brand as={Link} to="/">
@@ -29,11 +29,11 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/about">
                 About
               </Nav.Link>
-              <Nav.Link as={Link} to="/services">
-                Services
+              <Nav.Link as={Link} to="/tours">
+                Tours
               </Nav.Link>
-              <Nav.Link as={Link} to="/pricing">
-                Pricing
+              <Nav.Link as={Link} to="/destination">
+                Destination
               </Nav.Link>
               <Nav.Link as={Link} to="/contact">
                 Contact
